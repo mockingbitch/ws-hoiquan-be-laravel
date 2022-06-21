@@ -20,24 +20,10 @@ class Film extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'description',
-        'tag_id',
-        'category_id',
+        'name_vi',
+        'name_en',
+        'description_vi',
+        'description_en',
         'vote'
     ];
-
-    /**
-     * @return void
-     */
-    public function category() {
-        return $this->belongsTo(Category::class, 'category_id');
-    }
-
-    /**
-     * @return void
-     */
-    public function tag() {
-        return $this->belongsTo(Tag::class, 'tag_id');
-    }
 }

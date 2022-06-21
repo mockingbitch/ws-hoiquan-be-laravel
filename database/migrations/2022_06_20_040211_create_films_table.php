@@ -15,12 +15,10 @@ class CreateFilmsTable extends Migration
     {
         Schema::create('films', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tags');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->string('name_vi')->nullable();
+            $table->string('name_en')->nullable();
+            $table->text('description_vi')->nullable();
+            $table->text('description_en')->nullable();
             $table->integer('vote')->default(0);
             $table->timestamps();
         });

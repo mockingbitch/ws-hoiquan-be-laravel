@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateFilmtagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('filmtags', function (Blueprint $table) {
             $table->id();
-            $table->string('value_vi')->nullable();
-            $table->string('value_en')->nullable();
-            $table->string('status')->default(1);
+            $table->unsignedBigInteger('film_id');
+            $table->foreign('film_id')->references('id')->on('films');
+            $table->unsignedBigInteger('tag_id');
+            $table->foreign('tag_id')->references('id')->on('tags');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('filmtags');
     }
 }

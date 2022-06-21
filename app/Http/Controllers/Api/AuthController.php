@@ -117,6 +117,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * 
+     * @return void
+     */
     public function changePassWord(Request $request) {
         $validator = Validator::make($request->all(), [
             'old_password' => 'required|string|min:6',
