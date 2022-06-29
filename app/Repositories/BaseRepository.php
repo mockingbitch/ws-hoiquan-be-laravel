@@ -29,19 +29,19 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function getAll() 
     {
-        return $this->model->all(); // tương tự Model::all()
+        return $this->model->all();
     }
 
     public function find($id)
     {
-        $result = $this->model->find($id); //gọi đến hàm find từ model
+        $result = $this->model->find($id);
 
         return $result;
     }
 
     public function create($attributes = [])
     {
-        return $this->model->create($attributes); //gọi đến hàm tạo của model vd:Amount::create($data[]);
+        return $this->model->create($attributes);
     }
 
     public function update($id, $attributes = [])
@@ -63,10 +63,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
         }
         return false;
     }
+    
     public function paginate($int){
         return $this->model->paginate($int);
     }
-    public function count(){
-        return $this->model->count();
-    }
+    
 }

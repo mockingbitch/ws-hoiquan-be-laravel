@@ -18,7 +18,8 @@ class Tag extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'value_vi',
+        'value_en',
         'status'
     ];
 }

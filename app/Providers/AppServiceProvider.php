@@ -27,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
         => \App\Repositories\Contracts\Repository\FilmRepository::class,
         \App\Repositories\Contracts\RepositoryInterface\VoteRepositoryInterface::class
         => \App\Repositories\Contracts\Repository\VoteRepository::class,
+        \App\Repositories\Contracts\RepositoryInterface\FilmTagRepositoryInterface::class
+        => \App\Repositories\Contracts\Repository\FilmTagRepository::class,
     ];
 
     /**
