@@ -16,9 +16,9 @@ class CreateFilmtagsTable extends Migration
         Schema::create('filmtags', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('film_id');
-            $table->foreign('film_id')->references('id')->on('films');
+            $table->foreign('film_id')->references('id')->on('films')->onDelete('cascade');
             $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             $table->timestamps();
         });
     }

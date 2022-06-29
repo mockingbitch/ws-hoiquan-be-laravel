@@ -20,6 +20,7 @@ class CreateFilmsTable extends Migration
             $table->text('description_vi')->nullable();
             $table->text('description_en')->nullable();
             $table->integer('vote')->default(0);
+            $table->integer('percent')->default(0);
             $table->timestamps();
         });
     }

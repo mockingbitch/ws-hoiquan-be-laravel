@@ -30,8 +30,8 @@ class TagController extends Controller
     public function show(Request $request) : JsonResponse
     {
         try {
-            $query = $request->query();
-            if ($query['id'] == 'all') {
+            $tagId = $request->query('id');
+            if ($tagId == 'all') {
                 $tags = $this->tagRepository->getAll();
 
                 return response()->json([
@@ -41,7 +41,7 @@ class TagController extends Controller
                 ], 200);
             }
 
-            if ($tag = $this->tagRepository->find($query['id'])) {
+            if ($tag = $this->tagRepository->find($tagId)) {
                 return response()->json([
                     'errCode' => 0,
                     'message' => 'success',
@@ -96,15 +96,15 @@ class TagController extends Controller
     public function update(Request $request) : JsonResponse
     {
         try {
-            $query = $request->query();
-            if (! $tag = $this->tagRepository->find($query['id'])) {
+            $tagId = $request->query('id');
+            if (! $tag = $this->tagRepository->find($tagId)) {
                 return response()->json([
                     'errcode' => 1,
                     'message' => 'Could not find tag'
                 ], 200);
             }
 
-            if (! $this->tagRepository->update($query['id'], $request->toArray())) {
+            if (! $this->tagRepository->update($tagId, $request->toArray())) {
                 return response()->json([
                     'errCode' => 1,
                     'message' => 'failed'
@@ -131,15 +131,15 @@ class TagController extends Controller
     public function delete(Request $request) : JsonResponse
     {
         try {
-            $query = $request->query();
-            if (! $tag = $this->tagRepository->find($query['id'])) {
+            $tagId = $request->query('id');
+            if (! $tag = $this->tagRepository->find($tagId)) {
                 return response()->json([
                     'errcode' => 1,
                     'message' => 'Could not find tag'
                 ], 200);
             }
 
-            if (! $this->tagRepository->delete($query['id'])) {
+            if (! $this->tagRepository->delete($tagId)) {
                 return response()->json([
                     'errcode' => 1,
                     'message' => 'failed'

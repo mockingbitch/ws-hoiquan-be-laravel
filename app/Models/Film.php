@@ -24,6 +24,7 @@ class Film extends Model
         'name_en',
         'description_vi',
         'description_en',
-        'vote'
+        'vote',
+        'percent'
     ];
 }

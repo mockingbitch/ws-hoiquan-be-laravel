@@ -46,14 +46,14 @@ class FilmController extends Controller
 
     /**
      * @param Request $request
-     * 
+     * Hàm lấy ra film theo id/all 
      * @return JsonResponse
      */
     public function show(Request $request) : JsonResponse
     {
         try {
-            $query = $request->query();
-            if ($query['id'] == 'all') {
+            $filmId = $request->query('id');
+            if ($filmId == 'all') {
                 $films = $this->filmRepository->getAll();
 
                 return response()->json([
@@ -63,7 +63,7 @@ class FilmController extends Controller
                 ], 200);
             }
 
-            if ($film = $this->filmRepository->find($query['id'])) {
+            if ($film = $this->filmRepository->find($filmId)) {
                 return response()->json([
                     'errCode' => 0,
                     'message' => 'success',
@@ -85,7 +85,7 @@ class FilmController extends Controller
 
     /**
      * @param Request $request
-     * 
+     * Hàm tạo film + tag film
      * @return JsonResponse
      */
     public function create(Request $request) : JsonResponse
@@ -114,7 +114,7 @@ class FilmController extends Controller
                     $tag= $this->tagRepository->find($tag_id);
                     if ($tag) {
                         $data = [
-                            'tag_id' => $tag_id,
+                            'tag_id' => $tag_id, 
                             'film_id' => $film->id
                         ];
 
@@ -147,12 +147,12 @@ class FilmController extends Controller
 
     /**
      * @param Request $request
-     * 
+     * Hàm update film + tag film
      * @return JsonResponse
      */
     public function update(Request $request) : JsonResponse
     {
-        // try {
+        try {
             $validator = Validator::make($request->all(), [
                 'name_vi' => 'required|string',
                 'name_en' => 'required|string',
@@ -164,16 +164,16 @@ class FilmController extends Controller
                 return response()->json($validator->errors(), 422);
             }
             
-            $query = $request->query();
+            $filmId = $request->query('id');
 
-            if (! $film = $this->filmRepository->find($query['film_id'])) {
+            if (! $film = $this->filmRepository->find($filmId)) {
                 return response()->json([
                     'errCode' => 1,
                     'message' => 'Could not find film'
                 ], 404);
             }
 
-            if (! $this->filmRepository->update($query['film_id'], $validator->validated())) {
+            if (! $this->filmRepository->update($filmId, $validator->validated())) {
                 return response()->json([
                     'errCode' => 1,
                     'message' => 'failed'
@@ -236,31 +236,31 @@ class FilmController extends Controller
                 'errCode' => 0,
                 'message' => 'success'
             ], 201);
-        // } catch (\Throwable $th) {
-        //     return response()->json([
-        //         'errCode' => 2,
-        //         'message' => 'Something went wrong'
-        //     ], 200);
-        // }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'errCode' => 2,
+                'message' => 'Something went wrong'
+            ], 200);
+        }
     }
 
     /**
      * @param Request $request
-     * 
+     * Hàm xoá, xoá tag film
      * @return JsonResponse
      */
     public function delete(Request $request) : JsonResponse
     {
         try {
-            $query = $request->query();
-            if (! $film = $this->filmRepository->find($query['id'])) {
+            $filmId = $request->query('id');
+            if (! $film = $this->filmRepository->find($filmId)) {
                 return response()->json([
                     'errcode' => 1,
                     'message' => 'Could not find film'
                 ], 200);
             }
 
-            if (! $this->filmRepository->delete($query['id'])) {
+            if (! $this->filmRepository->delete($filmId)) {
                 return response()->json([
                     'errcode' => 1,
                     'message' => 'failed'

@@ -28,8 +28,8 @@ class CategoryController extends Controller
     public function show(Request $request) : JsonResponse
     {
         try {
-            $query = $request->query();
-            if ($query['id'] == 'all') {
+            $categoryId = $request->query('id');
+            if ($categoryId == 'all') {
                 $categories = $this->categoryRepository->getAll();
 
                 return response()->json([
@@ -39,7 +39,7 @@ class CategoryController extends Controller
                 ], 200);
             }
 
-            if ($category = $this->categoryRepository->find($query['id'])) {
+            if ($category = $this->categoryRepository->find($categoryId)) {
                 return response()->json([
                     'errCode' => 0,
                     'message' => 'success',
@@ -94,15 +94,15 @@ class CategoryController extends Controller
     public function update(Request $request) : JsonResponse
     {
         try {
-            $query = $request->query();
-            if (! $category = $this->categoryRepository->find($query['id'])) {
+            $categoryId = $request->query('id');
+            if (! $category = $this->categoryRepository->find($categoryId)) {
                 return response()->json([
                     'errcode' => 1,
                     'message' => 'Could not find category'
                 ], 200);
             }
 
-            if (! $this->categoryRepository->update($query['id'], $request->toArray())) {
+            if (! $this->categoryRepository->update($categoryId, $request->toArray())) {
                 return response()->json([
                     'errCode' => 1,
                     'message' => 'failed'
@@ -129,15 +129,15 @@ class CategoryController extends Controller
     public function delete(Request $request) : JsonResponse
     {
         try {
-            $query = $request->query();
-            if (! $category = $this->categoryRepository->find($query['id'])) {
+            $categoryId = $request->query('id');
+            if (! $category = $this->categoryRepository->find($categoryId)) {
                 return response()->json([
                     'errcode' => 1,
                     'message' => 'Could not find category'
                 ], 200);
             }
 
-            if (! $this->categoryRepository->delete($query['id'])) {
+            if (! $this->categoryRepository->delete($categoryId)) {
                 return response()->json([
                     'errcode' => 1,
                     'message' => 'failed'

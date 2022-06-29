@@ -16,9 +16,9 @@ class CreateVotesTable extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('film_id');
-            $table->foreign('film_id')->references('id')->on('films');
+            $table->foreign('film_id')->references('id')->on('films')->onDelete('cascade');
             $table->integer('percent');
             $table->text('comment');
             $table->timestamps();
