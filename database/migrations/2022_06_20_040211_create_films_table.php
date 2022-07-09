@@ -19,8 +19,16 @@ class CreateFilmsTable extends Migration
             $table->string('name_en')->nullable();
             $table->text('description_vi')->nullable();
             $table->text('description_en')->nullable();
+            $table->string('director')->nullable();
+            $table->string('country')->nullable();
+            $table->string('production_co')->nullable();
+            $table->string('rated')->nullable();
+            $table->string('running_time')->nullable();
+            $table->string('budget')->nullable();
             $table->integer('vote')->default(0);
             $table->integer('percent')->default(0);
+            $table->string('release_date')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

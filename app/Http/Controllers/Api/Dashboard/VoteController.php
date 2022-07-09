@@ -36,7 +36,7 @@ class VoteController extends Controller
     /**
      * @param Request $request
      * 
-     * @return void
+     * @return JsonResponse
      */
     public function create(Request $request)
     {
@@ -102,6 +102,11 @@ class VoteController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * 
+     * @return JsonResponse
+     */
     public function update(Request $request)
     {
         try {
