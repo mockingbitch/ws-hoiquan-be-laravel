@@ -96,13 +96,16 @@ class FilmController extends Controller
                 'name_en' => 'required|string',
                 'description_vi' => 'required|string|max:1000',
                 'description_en' => 'required|string|max:1000',
+                'status' => 'required|string'
             ]);
 
             if ($validator->fails()) {
                 return response()->json($validator->errors(), 422);
             }
-
-            if (! $film = $this->filmRepository->create($validator->validated())) {
+            $data = $validator->validated();
+            $data['release_date'] = $request->release_date; 
+            dd($data);
+            if (! $film = $this->filmRepository->create($data)) {
                 return response()->json([
                     'errCode' => 1,
                     'message' => 'failed'
