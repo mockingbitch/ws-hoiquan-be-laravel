@@ -96,6 +96,12 @@ class FilmController extends Controller
                 'name_en' => 'required|string',
                 'description_vi' => 'required|string|max:1000',
                 'description_en' => 'required|string|max:1000',
+                'director' => 'string',
+                'country' => 'string',
+                'production_co' => 'string',
+                'rated' => 'string',
+                'running_time' => 'string',
+                'budget' => 'string',
                 'status' => 'required|string'
             ]);
 
@@ -103,8 +109,7 @@ class FilmController extends Controller
                 return response()->json($validator->errors(), 422);
             }
             $data = $validator->validated();
-            $data['release_date'] = $request->release_date; 
-            dd($data);
+            $data['release_date'] = $request->release_date;
             if (! $film = $this->filmRepository->create($data)) {
                 return response()->json([
                     'errCode' => 1,

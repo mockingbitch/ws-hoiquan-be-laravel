@@ -28,6 +28,7 @@ class CreateFilmsTable extends Migration
             $table->integer('vote')->default(0);
             $table->integer('percent')->default(0);
             $table->string('release_date')->nullable();
+            $table->string('image')->nullable();
             $table->string('status');
             $table->timestamps();
         });

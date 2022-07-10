@@ -24,7 +24,15 @@ class Film extends Model
         'name_en',
         'description_vi',
         'description_en',
+        'director',
+        'country',
+        'production_co',
+        'rated',
+        'running_time',
+        'budget',
         'vote',
-        'percent'
+        'percent',
+        'release_date',
+        'status'
     ];
 }
