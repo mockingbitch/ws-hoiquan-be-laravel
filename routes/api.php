@@ -65,4 +65,7 @@ Route::group([
             });
         });
     });
+
+    #HOME
+    Route::get('/film', [FilmController::class, 'show']);
 });
