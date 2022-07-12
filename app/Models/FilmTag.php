@@ -30,7 +30,7 @@ class FilmTag extends Model
         return $this->belongsTo(Film::class, 'film_id');
     }
 
-     /**
+    /**
      * @return void
      */
     public function tag()
