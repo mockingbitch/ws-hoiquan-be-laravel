@@ -38,6 +38,29 @@ class VoteController extends Controller
      * 
      * @return JsonResponse
      */
+    public function show(Request $request) {
+        try {
+            $id = $request->query('film_id');
+            $votes = $this->voteRepository->getAll();
+            
+            return response()->json([
+                'errCode' => 0,
+                'message' => 'success',
+                'votes' => $votes
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'errCode' => 2,
+                'message' => 'something went wrong'
+            ], 200);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * 
+     * @return JsonResponse
+     */
     public function create(Request $request)
     {
         try {

@@ -68,4 +68,5 @@ Route::group([
 
     #HOME
     Route::get('/film', [FilmController::class, 'show']);
+    Route::get('/film/vote', [VoteController::class, 'show']);
 });
