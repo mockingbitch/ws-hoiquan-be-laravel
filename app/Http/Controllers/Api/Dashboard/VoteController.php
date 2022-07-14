@@ -45,7 +45,7 @@ class VoteController extends Controller
             $votes = $this->voteRepository->getAllVotes($filmId);
             $user = auth()->user();
             if ($user) {
-                $userVote = $this->voteRepository->checkIfExistVote($user->id, $filmId);
+                $isVoted = $this->voteRepository->checkIfExistVote($user->id, $filmId);
             }
 
             return response()->json([
