@@ -40,19 +40,25 @@ class VoteController extends Controller
      */
     public function show(Request $request) {
         try {
-            $id = $request->query('film_id');
-            $votes = $this->voteRepository->getAll();
-            
+            $isVoted = false;
+            $filmId = $request->query('film_id');
+            $votes = $this->voteRepository->getAllVotes($filmId);
+            $user = auth()->user();
+            if ($user) {
+                $userVote = $this->voteRepository->checkIfExistVote($user->id, $filmId);
+            }
+
             return response()->json([
                 'errCode' => 0,
                 'message' => 'success',
-                'votes' => $votes
+                'votes' => $votes,
+                'isVoted' => $isVoted
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'errCode' => 2,
                 'message' => 'something went wrong'
-            ], 200);
+            ], 501);
         }
     }
 
@@ -76,7 +82,7 @@ class VoteController extends Controller
             $user = auth()->user();
             $validator = Validator::make($request->all(), [
                 'percent' => 'required|numeric|integer|between:1,100',
-                'comment' => 'string|max:1000',
+                'comment' => 'string|max:1000|nullable',
             ]);
             
             if ($validator->fails()) {
@@ -87,7 +93,7 @@ class VoteController extends Controller
             $data['film_id'] = $filmId;
             $data['user_id'] = $user->id;
 
-            if ($this->voteRepository->checkIfExistVote($user->id)) {
+            if ($this->voteRepository->checkIfExistVote($user->id, $filmId)) {
                 return response()->json([
                     'errCode' => 1,
                     'message' => 'Voted'
@@ -121,7 +127,7 @@ class VoteController extends Controller
             return response()->json([
                 'errCode' => 2,
                 'message' => 'Something went wrong'
-            ], 200);
+            ], 204);
         }
     }
 

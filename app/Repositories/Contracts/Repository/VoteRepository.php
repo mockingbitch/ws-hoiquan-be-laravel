@@ -21,9 +21,13 @@ class VoteRepository extends BaseRepository implements VoteRepositoryInterface
      * 
      * @return void
      */
-    public function checkIfExistVote(int $userId)
+    public function checkIfExistVote(int $userId, int $filmId)
     {
-        return $this->model->where('user_id', $userId)->first();
+        if ($this->model->where('user_id', $userId)->where('film_id', $filmId)->first()) {
+            return true;
+        }
+
+        return false;
     }
     
     /**
@@ -53,5 +57,21 @@ class VoteRepository extends BaseRepository implements VoteRepositoryInterface
         $percent = $sum / count($votes);
         
         return $percent;
+    }
+
+    /**
+     * @param integer $id
+     * 
+     * @return void
+     */
+    public function getAllVotes(int $id)
+    {
+        $votes = $this->model
+                ->join('users', 'users.id', '=', 'votes.user_id')
+                ->select('votes.*', 'users.firstName', 'users.lastName')
+                ->where('votes.film_id', $id)
+                ->get();
+
+        return $votes;
     }
 }

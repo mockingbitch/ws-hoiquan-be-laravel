@@ -57,16 +57,11 @@ Route::group([
                 Route::put('/', [FilmController::class, 'update']);
                 Route::delete('/', [FilmController::class, 'delete']);
             });
-
-            #VOTE
-            Route::prefix('vote')->group(function() {
-                Route::post('/', [VoteController::class, 'create']);
-                Route::put('/', [VoteController::class, 'update']);
-            });
         });
     });
 
     #HOME
     Route::get('/film', [FilmController::class, 'show']);
     Route::get('/film/vote', [VoteController::class, 'show']);
+    Route::post('/film/vote', [VoteController::class, 'create']);
 });

@@ -20,7 +20,7 @@ class CreateVotesTable extends Migration
             $table->unsignedBigInteger('film_id');
             $table->foreign('film_id')->references('id')->on('films')->onDelete('cascade');
             $table->integer('percent');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
